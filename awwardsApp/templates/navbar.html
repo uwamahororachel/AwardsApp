@@ -24,7 +24,25 @@
                     <input type="text" class="form-control my-2 my-sm-0 search-input" name="project" placeholder="Search by title.." id="search">
                 </form>
             </div>
-         
+            <div class="col-md-8" style=" padding-top:5px;text-align:center;padding: 0 10px;">
+                <div class="row">
+                    <div class="col-md-10">
+                        <a class="navbar-brand navbar-right text-success" href="{% url 'index' %}" style="margin-left:120px;font-size:30px; font-family: 'Carter One', cursive; ">My Awards</a>
+                    </div>
+                    <div class="col-md-2" style="padding-top:10px;">
+                        <div class="row" id='profile'>
+                            {% if user.is_authenticated %}
+                            <div class="col-md-8">
+                               
+                            {% else %}
+
+                            <a class='btn btn-default' href="/accounts/login/?next=/">Login</a>
+
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="col-md-2 upload bg-warning" style="padding-top:15px; text-align:center">
                 <a href="{%url 'new_project'%}" style="color:white; font-weight: bo; font-size:17px; text-decoration: none; ">Submit Project</a>
             </div>
