@@ -39,3 +39,27 @@ class ProjectTest(TestCase):
         profile1.save()
         self.project1=Project(profile=profile1,name='project1',description='Testing description',link='www.testing.com')
     
+
+    def test_instance(self):
+        '''
+        test project object initialization
+        '''
+        self.assertTrue(isinstance(self.project1,Project))
+
+
+    def test_save(self):
+        '''
+        test project save 
+        '''
+        self.project1.save()
+        projects=Project.objects.all()
+        self.assertTrue(len(projects)>=1)
+
+    def test_search(self):
+        '''
+        test search method for project search method
+        '''
+        self.project1.save()
+        search_term='p'
+        search_projects=Project.search_by_name(search_term)
+        self.assertTrue(len(search_projects)==1 )
