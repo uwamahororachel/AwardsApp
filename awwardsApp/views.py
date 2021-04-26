@@ -61,3 +61,63 @@ def my_profile(request):
     }
     return render(request,"myProfile.html",context=context)
 
+
+@login_required(login_url='/accounts/login/') 
+def profile(request,profile_id):
+    profile = Profile.objects.get(id=profile_id)
+    projects = Project.objects.filter(user=profile.user).all()
+    print(profile.user)
+    form=ProfileUpdateForm(instance=profile)
+    
+    if request.method == 'POST':
+        form = ProfileUpdateForm(request.POST, request.FILES,instance=profile)
+        if form.is_valid():
+            form.save()
+    context={
+        'form':form,
+        'projects':projects,
+        'profile':profile,
+    }
+    return render(request,"profile.html",context=context)
+
+@login_required(login_url='/accounts/login/')     
+def new_project(request):
+    current_user = request.user
+    if request.method == 'POST':
+        form = NewProjectForm(request.POST, request.FILES)
+        if form.is_valid():
+            project = form.save(commit=False)
+            project.user = current_user
+            project.save()
+        return redirect('index')
+        
+    else:
+        form = NewProjectForm()
+    return render(request, 'newProject.html', {"form":form, "current_user":current_user})
+
+def search_results(request):
+
+    if 'project' in request.GET and request.GET["project"]:
+        search_term = request.GET.get("project")
+        searched_projects = Project.search(search_term)
+        print(search_term)
+        message = f"{search_term}"
+
+        return render(request, 'search.html',{"message":message,"projects": searched_projects})
+
+    else:
+        message = "You haven't searched for any term"
+        return render(request, 'search.html',{"message":message})
+
+class ProfileList(APIView):
+    def get(self, request, fromat=None):
+        all_profiles =Profile.objects.all()
+        serializers = ProfileSerializer(all_profiles, many=True)
+        return Response(serializers.data)
+
+
+class ProjectList(APIView):
+    def get(self, request, fromat=None):
+        all_projects =Project.objects.all()
+        serializers =ProjectSerializer(all_projects, many=True)
+        return Response(serializers.data)
