@@ -33,7 +33,18 @@
                         <div class="row" id='profile'>
                             {% if user.is_authenticated %}
                             <div class="col-md-8">
-                               
+                                
+                                <div class="dropdown">
+                                    <a class="btn btn text-success" data-toggle="dropdown" 
+                                        aria-haspopup="true" aria-expanded="false">{{ user.username }} <img src='{{user.profile.profile_picture.url}}' width='18px' height='18px' style='border-radius:50%;'>
+                                    </a>
+                                    <div class="dropdown-menu" style="width:300px;">
+                                        <a class="dropdown-item" href="{%url 'my_profile'%}">Profile</a>
+                                        <div class="dropdown-divider"></div>
+                                        <a class="dropdown-item" href="/logout">Logout</a>
+                                    </div>
+                                </div>
+                            </div>
                             {% else %}
 
                             <a class='btn btn-default' href="/accounts/login/?next=/">Login</a>
