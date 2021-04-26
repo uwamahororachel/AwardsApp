@@ -50,7 +50,54 @@
     -o-filter: brightness(0.4);
     -ms-filter: brightness(0.4);
   }
-
+  
+  .hovereffect h4 {
+      text-transform: uppercase;
+      text-align: center;
+      position: relative;
+      font-size: 15px;
+      background-color: transparent;
+      font-weight:bolder;
+      color: #ffffff;
+      margin-top: 0.5em;
+      padding: 1em 2em;
+      opacity: 0;
+      filter: alpha(opacity=0);
+      
+      -webkit-transform: translate3d(0,-100%,0);
+      transform: translate3d(0,-100%,0);
+  }
+  
+  .hovereffect .btn{
+      background-color: #FFF;
+      font-weight: bolder;
+      -webkit-transition: opacity 0.35s, -webkit-transform 0.35s;
+      transition: opacity 0.35s, transform 0.35s;
+      width: 100%;
+     -webkit-transform: translate3d(0,100%,0);
+      transform: translate3d(0,100%,0);
+  }
+  
+  .hovereffect:hover p, .hovereffect:hover h4 {
+      opacity: 1;
+      filter: alpha(opacity=100);
+      -webkit-transform: translate3d(0,0,0);
+      transform: translate3d(0,0,0);
+  }
+  .fab { transform: scale(1.7,1.8); }
+  a{
+    text-decoration:none;
+    color:black;
+  }
+.view{
+  min-height:100%;
+  background: url('media/images/bg.jpg');
+  background-size:cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  
+  overflow: hidden;
+}
 </style>
    
 
